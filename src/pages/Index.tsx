@@ -1,5 +1,9 @@
-import { BookOpen, GraduationCap, Headphones, BookMarked, Film, Palette, Video, FileText, Zap } from "lucide-react";
+import { BookOpen, GraduationCap, Headphones, BookMarked, Film, Palette, Video, FileText, Zap, Smartphone } from "lucide-react";
+import { useState } from "react";
 import AccessCard from "@/components/AccessCard";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import logo from "@/assets/logo.png";
 import book11 from "@/assets/book11.webp";
 import book13 from "@/assets/book13.webp";
@@ -13,6 +17,8 @@ import book20 from "@/assets/book20.webp";
 import book21 from "@/assets/book21.webp";
 
 const Index = () => {
+  const [isAppModalOpen, setIsAppModalOpen] = useState(false);
+
   const mainProduct = [
     {
       icon: Headphones,
@@ -243,7 +249,69 @@ const Index = () => {
             ))}
           </div>
         </section>
+
+        {/* Aplicativo */}
+        <section>
+          <h2 className="text-3xl font-bold text-center mb-8 text-foreground">
+            📱 Aplicativo
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 justify-items-center">
+            <Card 
+              className="group p-6 transition-all duration-300 hover:shadow-[0_8px_30px_-4px_hsl(var(--primary)/0.2)] hover:-translate-y-1 bg-card border-border cursor-pointer"
+              onClick={() => setIsAppModalOpen(true)}
+            >
+              <div className="flex flex-col items-center text-center space-y-4">
+                <div className="p-4 rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/10 text-primary transition-transform duration-300 group-hover:scale-110">
+                  <Smartphone size={40} strokeWidth={2} />
+                </div>
+                
+                <div className="space-y-2">
+                  <h3 className="text-xl font-bold text-foreground leading-tight">
+                    Aplicativo Mobile
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Acesse todo o conteúdo pelo nosso app
+                  </p>
+                </div>
+
+                <Button 
+                  size="lg"
+                  className="w-full mt-4 bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-primary-foreground font-semibold shadow-md transition-all duration-300 hover:shadow-lg"
+                >
+                  Acessar App
+                </Button>
+              </div>
+            </Card>
+          </div>
+        </section>
       </main>
+
+      {/* Modal de Atualização do App */}
+      <Dialog open={isAppModalOpen} onOpenChange={setIsAppModalOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-center">
+              🔄 Aplicativo em Atualização
+            </DialogTitle>
+            <DialogDescription className="text-center pt-4 space-y-4">
+              <p className="text-base">
+                Nosso aplicativo está passando por uma atualização importante e voltará a funcionar dentro de <span className="font-bold text-foreground">7 dias</span>.
+              </p>
+              <p className="text-base">
+                Enquanto isso, você pode desfrutar de todos os produtos baixando-os diretamente para o seu <span className="font-semibold">celular</span>, <span className="font-semibold">computador</span> ou <span className="font-semibold">tablet</span>!
+              </p>
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-center pt-2">
+            <Button 
+              onClick={() => setIsAppModalOpen(false)}
+              className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-primary-foreground"
+            >
+              Entendi
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Footer */}
       <footer className="bg-muted/50 py-8 px-4 mt-12">
